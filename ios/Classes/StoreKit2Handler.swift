@@ -131,10 +131,10 @@ class StoreKit2Handler {
         var purchaseToken: String? = nil
         var resultMessage: String = ""
         var canPresent: Bool = false
-        if #available(iOS 17.4, *) {
+        //if #available(iOS 17.4, *) {
             canPresent = await ExternalPurchase.canPresent
             print("ExternalPurchase.canPresent: \(canPresent)")
-        }
+        //}
 
         if !canPresent {
             resultMessage = "External purchases are not supported."
