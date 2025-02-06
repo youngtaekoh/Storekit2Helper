@@ -123,6 +123,16 @@ public class Storekit2Plugin: NSObject, FlutterPlugin {
             result(FlutterError(code: "INVALID_ARGUMENTS", message: "Missing productId", details: nil))
         }
 
+    case "canMakePayments":
+        result(StoreKit2Handler.canMakePayments())
+
+    case "presentExternalPurchaseSheet":
+        Task {
+            let info = await StoreKit2Handler.presentExternalPurchaseSheet()
+            let infoDict = ["token": info.0, "message": info.1]
+            result(infoDict)
+        }
+
     default:
         result(FlutterMethodNotImplemented)
     }

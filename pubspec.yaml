@@ -29,5 +29,6 @@ flutter:
     platforms:
       ios:
         pluginClass: Storekit2Plugin
+        minimumOsVersion: 17.4
 
    

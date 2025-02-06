@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
     // Buy product by product id
     Storekit2Helper.initialize();
 
-    print(await Storekit2Helper.hasActiveSubscription());
+    print("hasActiveSubscription: ${hasActiveSubscription ? 'true' : 'false'}");
   }
 
   @override
@@ -57,7 +57,21 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: '),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('Running on: $_platformVersion\n'),
+              ElevatedButton(
+                onPressed: () async {
+                  var result = await Storekit2Helper.canMakePayments();
+                  print("CanMakePayments: $result");
+                  var noticeResult = await Storekit2Helper.presentExternalPurchaseSheet();
+                  print("Notice sheet: $noticeResult");
+                },
+                child: const Text("Call CanMakePayments"),
+              ),
+            ],
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {

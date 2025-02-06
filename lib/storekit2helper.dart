@@ -66,6 +66,18 @@ class Storekit2Helper {
         await _channel.invokeMethod('hasActiveSubscription');
     return hasSubscription;
   }
+
+  static Future<bool> canMakePayments() async {
+    final bool isAvailable =
+        await _channel.invokeMethod('canMakePayments');
+    return isAvailable;
+  }
+
+  static Future<dynamic> presentExternalPurchaseSheet() async {
+    final dynamic result =
+        await _channel.invokeMethod('presentExternalPurchaseSheet');
+    return result;
+  }
 }
 
 class ProductDetail {

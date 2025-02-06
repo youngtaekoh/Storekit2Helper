@@ -122,9 +122,45 @@ class StoreKit2Handler {
        }
        return all
     }
-}
-  
 
-   
-    
+    static func canMakePayments() -> Bool {
+        return AppStore.canMakePayments
+    }
+
+    static func presentExternalPurchaseSheet() async -> (token: String?, message: String) {
+        var purchaseToken: String? = nil
+        var resultMessage: String = ""
+        var canPresent: Bool = false
+        if #available(iOS 17.4, *) {
+            canPresent = await ExternalPurchase.canPresent
+        }
+        if !canPresent {
+            canPresent = AppStore.canMakePayments
+        }
+
+        if !canPresent {
+            resultMessage = "External purchases are not supported."
+            return (nil, resultMessage)
+        }
+
+        do {
+            let result = try await ExternalPurchase.presentNoticeSheet()
+
+            switch result {
+                case .continuedWithExternalPurchaseToken(let token):
+                    resultMessage = "Moved to external purchase page."
+                    purchaseToken = token
+
+                case .cancelled:
+                    resultMessage = "User cancelled the external purchase."
+
+                @unknown default:
+                    resultMessage = "Unknown error occurred"
+            }
+        } catch {
+            resultMessage = "Error: \(error.localizedDescription)"
+        }
+        return (purchaseToken, resultMessage)
+    }
+}
 
