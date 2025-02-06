@@ -21,7 +21,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
-  storekit2helper: 716d4016c59095199bd73c8e0bd6182cb2f1623a
+  storekit2helper: f6f4088bacba4b3d81bedfe3fd70e9c794e3b3bc
 
 PODFILE CHECKSUM: e272e928f3a34260872cbcab4a6daa852ad2c583
 

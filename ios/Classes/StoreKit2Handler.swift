@@ -133,9 +133,7 @@ class StoreKit2Handler {
         var canPresent: Bool = false
         if #available(iOS 17.4, *) {
             canPresent = await ExternalPurchase.canPresent
-        }
-        if !canPresent {
-            canPresent = AppStore.canMakePayments
+            print("ExternalPurchase.canPresent: \(canPresent)")
         }
 
         if !canPresent {
