@@ -27,26 +27,26 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> testPlugin() async {
     // get products
-    var products = await Storekit2Helper.fetchProducts(
-        ["app_weekly", "app_yearly", "app_lifetime"]);
-
-    for (var p in products) {
-      print(p.productId +
-          " - " +
-          p.periodUnit +
-          " " +
-          p.periodValue.toString() +
-          " " +
-          p.type);
-    }
-
-    // check user has active subscription
-    var hasActiveSubscription = await Storekit2Helper.hasActiveSubscription();
-
-    // Buy product by product id
-    Storekit2Helper.initialize();
-
-    print("hasActiveSubscription: ${hasActiveSubscription ? 'true' : 'false'}");
+    // var products = await Storekit2Helper.fetchProducts(
+    //     ["app_weekly", "app_yearly", "app_lifetime"]);
+    //
+    // for (var p in products) {
+    //   print(p.productId +
+    //       " - " +
+    //       p.periodUnit +
+    //       " " +
+    //       p.periodValue.toString() +
+    //       " " +
+    //       p.type);
+    // }
+    //
+    // // check user has active subscription
+    // var hasActiveSubscription = await Storekit2Helper.hasActiveSubscription();
+    //
+    // // Buy product by product id
+    // Storekit2Helper.initialize();
+    //
+    // print("hasActiveSubscription: ${hasActiveSubscription ? 'true' : 'false'}");
   }
 
   @override
@@ -66,21 +66,23 @@ class _MyAppState extends State<MyApp> {
                   var result = await Storekit2Helper.canMakePayments();
                   print("CanMakePayments: $result");
                   var noticeResult = await Storekit2Helper.presentExternalPurchaseSheet();
-                  print("Notice sheet: $noticeResult");
+                  print(noticeResult.runtimeType);
+                  print("Token: ${noticeResult['token']}");
+                  print("Message: ${noticeResult['message']}");
                 },
                 child: const Text("Call CanMakePayments"),
               ),
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Storekit2Helper.buyProduct(
-                "app_yearly", (success, transaction, errorMessage) {});
-          },
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ), // T
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {
+        //     Storekit2Helper.buyProduct(
+        //         "app_yearly", (success, transaction, errorMessage) {});
+        //   },
+        //   tooltip: 'Increment',
+        //   child: const Icon(Icons.add),
+        // ), // T
       ),
     );
   }

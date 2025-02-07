@@ -73,7 +73,10 @@ class Storekit2Helper {
     return isAvailable;
   }
 
-  static Future<dynamic> presentExternalPurchaseSheet() async {
+  // Returns a Map<String, dynamic> with the following keys:
+  // - 'token': String (the token received from the server)
+  // - 'message': String (the message received from the server)
+  static Future<Map<dynamic, dynamic>> presentExternalPurchaseSheet() async {
     final dynamic result =
         await _channel.invokeMethod('presentExternalPurchaseSheet');
     return result;
